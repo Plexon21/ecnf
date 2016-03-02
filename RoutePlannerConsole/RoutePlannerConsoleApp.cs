@@ -14,8 +14,9 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerConsole
         {
             var version = AssemblyName.GetAssemblyName("RoutePlannerConsole.exe").Version;
             Console.WriteLine("Welcome to Routeplanner (Version " + version + ")");
-            var wayPoint = new WayPoint("Windisch", 47.479319847061966, 8.212966918945312);
-            Console.WriteLine("{0}: {1}/{2}", wayPoint.Name, wayPoint.Latitude, wayPoint.Longitude);
+            var bern = new WayPoint("Bern", 46.95, 7.44);
+            var tripolis = new WayPoint("Tripolis", 32.876174, 13.187507);
+            Console.WriteLine(bern.Distance(tripolis));
         }
     }
 }
