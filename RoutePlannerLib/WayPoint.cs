@@ -22,7 +22,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 
         public override string ToString()
         {
-            return  Invariant($"WayPoint: {(Name!=null?" ":"")}{Latitude:0.00}/{Longitude:0.00}");
+            return  Invariant($"WayPoint: {(Name!=null?Name+" ":"")}{Latitude:0.00}/{Longitude:0.00}");
         }
 
         public double Distance(WayPoint target)
