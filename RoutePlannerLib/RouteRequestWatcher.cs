@@ -19,6 +19,12 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             {
                 requests[e.ToCity]++;
             }
+            Console.WriteLine("Current Request State");
+            Console.WriteLine("---------------------");
+            foreach (KeyValuePair<City, int> c in requests)
+            {
+                Console.WriteLine($"ToCity: {c.Key.Name} has been requested {c.Value} times.");
+            }
         }
 
         public int GetCityRequests(City city)
