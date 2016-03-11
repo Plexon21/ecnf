@@ -31,6 +31,31 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             set { cities[i] = value; }
         }
 
+        public City this[string cityName]
+        {
+            get
+            {
+                var city = cities.Find(c => c.Name.Equals(cityName, StringComparison.InvariantCultureIgnoreCase));
+                if (city != null)
+                {
+                    return city;
+                }
+                else 
+                    throw new KeyNotFoundException();
+
+            }
+            set
+            {
+                var city = cities.Find(c => c.Name.Equals(cityName, StringComparison.InvariantCultureIgnoreCase));
+                if (city != null)
+                {
+                    city = value;
+                }
+                else
+                    throw new KeyNotFoundException();
+            }
+        }
+
         public int ReadCities(string filename)
         {
             using (TextReader reader = new StreamReader(filename))
@@ -40,8 +65,8 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
                 while (line != null)
                 {
                     String[] values = line.Split('\t');
-                    cities.Add(new City(values[0], values[1], int.Parse(values[2]), double.Parse(values[3]),
-                        double.Parse(values[4])));
+                    cities.Add(new City(values[0].Trim(), values[1].Trim(), int.Parse(values[2].Trim()), double.Parse(values[3].Trim()),
+                        double.Parse(values[4].Trim())));
                     readCounter++;
                     line = reader.ReadLine();
 
