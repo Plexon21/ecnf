@@ -22,7 +22,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 
         public override string ToString()
         {
-            return  Invariant($"WayPoint: {(Name!=null?Name+" ":"")}{Latitude:0.00}/{Longitude:0.00}");
+            return Invariant($"WayPoint: {(Name != null ? Name + " " : "")}{Latitude:0.00}/{Longitude:0.00}");
         }
 
         public double Distance(WayPoint target)
@@ -33,9 +33,18 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             myLong = Longitude / 180 * Math.PI;
             tarLat = target.Latitude / 180 * Math.PI;
             tarLong = target.Longitude / 180 * Math.PI;
-            return (r*
-                    Math.Acos(Math.Sin(myLat)*Math.Sin(tarLat) +
-                              Math.Cos(myLat)*Math.Cos(tarLat)*Math.Cos(myLong - tarLong)));
+            return (r *
+                    Math.Acos(Math.Sin(myLat) * Math.Sin(tarLat) +
+                              Math.Cos(myLat) * Math.Cos(tarLat) * Math.Cos(myLong - tarLong)));
+        }
+
+        public static WayPoint operator-(WayPoint lhs, WayPoint rhs)
+        {
+            return new WayPoint(lhs.Name, lhs.Latitude - rhs.Latitude, lhs.Longitude - rhs.Longitude);
+        }
+        public static WayPoint operator +(WayPoint lhs, WayPoint rhs)
+        {
+            return new WayPoint(lhs.Name,lhs.Latitude+rhs.Latitude,lhs.Longitude+rhs.Longitude);
         }
     }
 }

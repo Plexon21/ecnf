@@ -18,46 +18,24 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 	/// </summary>
 	public class Link : IComparable
 	{
-		private City fromCity;
-		private City toCity;
-		double distance;
-		
-		TransportMode transportMode = TransportMode.Car;
-		
-		public TransportMode TransportMode
-		{
-			get
-			{
-				return transportMode;
-			}
-		}
+	    double distance;
 
-		public City FromCity
-		{
-			get
-			{
-				return fromCity;
-			}
-		}
+	    public TransportMode TransportMode { get; } = TransportMode.Car;
 
-		public City ToCity
-		{
-			get
-			{
-				return toCity;
-			}
-		}
+	    public City FromCity { get; }
 
-		public Link(City _fromCity, City _toCity, double _distance)
+	    public City ToCity { get; }
+
+	    public Link(City _fromCity, City _toCity, double _distance)
 		{
-			fromCity = _fromCity;
-			toCity = _toCity;
+			FromCity = _fromCity;
+			ToCity = _toCity;
 			distance = _distance;
 		}
 
 		public Link(City _fromCity, City _toCity, double _distance, TransportMode _transportMode) : this(_fromCity, _toCity, _distance)
 		{
-			transportMode = _transportMode;
+			TransportMode = _transportMode;
 		}
 
 		public double Distance

@@ -48,6 +48,7 @@
     <Compile Include="RouteRequestEventArgs.cs" />
     <Compile Include="RouteRequestWatcher.cs" />
     <Compile Include="Routes.cs" />
+    <Compile Include="Util\Extensions.cs" />
     <Compile Include="WayPoint.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

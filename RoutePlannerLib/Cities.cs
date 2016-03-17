@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.Util;
 
 namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 {
@@ -60,16 +62,13 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
         {
             using (TextReader reader = new StreamReader(filename))
             {
+                IEnumerable<string[]> citiesAsStrings = reader.GetSplittedLines('\t');
+                
                 var readCounter = 0;
-                var line = reader.ReadLine();
-                while (line != null)
+                foreach (var line in citiesAsStrings)
                 {
-                    String[] values = line.Split('\t');
-                    cities.Add(new City(values[0].Trim(), values[1].Trim(), int.Parse(values[2].Trim()), double.Parse(values[3].Trim()),
-                        double.Parse(values[4].Trim())));
+                    cities.Add(new City(line[0].Trim(), line[1].Trim(), int.Parse(line[2]), double.Parse(line[3], CultureInfo.InvariantCulture), double.Parse(line[4], CultureInfo.InvariantCulture)));
                     readCounter++;
-                    line = reader.ReadLine();
-
                 }
                 Count += readCounter;
                 return readCounter;
