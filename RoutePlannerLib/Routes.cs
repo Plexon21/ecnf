@@ -67,15 +67,11 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             return Count - previousCount;
         }
 
-        //public List<Link> FindShortestRouteBetween(string _fromCity, string _toCity, TransportMode _mode)
-        //	{
-        //	    RouteRequested?.Invoke(this, new RouteRequestEventArgs(cities[_fromCity],cities[_toCity], _mode));
-        //		return new List<Link>();
-        //	}
+ 
         public List<Link> FindShortestRouteBetween(string fromCity, string toCity, TransportMode mode)
         {
             //TODO: inform listeners
-
+            RouteRequested?.Invoke(this, new RouteRequestEventArgs(cities[fromCity], cities[toCity],mode));
             //use dijkstra's algorithm to look for all single-source shortest paths
             var visited = new Dictionary<City, DijkstraNode>();
             var pending = new SortedSet<DijkstraNode>(new DijkstraNode[]
