@@ -67,11 +67,19 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             return Count - previousCount;
         }
 
- 
+        public City[] FindCities(TransportMode transportMode)
+        {
+            return routes.Where(r => r.TransportMode == transportMode)
+                    .Select(r => r.FromCity)
+                    .Concat(routes.Where(r => r.TransportMode == transportMode).Select(r => r.ToCity))
+                    .Distinct().ToArray();
+        }
+
+
         public List<Link> FindShortestRouteBetween(string fromCity, string toCity, TransportMode mode)
         {
             //TODO: inform listeners
-            RouteRequested?.Invoke(this, new RouteRequestEventArgs(cities[fromCity], cities[toCity],mode));
+            RouteRequested?.Invoke(this, new RouteRequestEventArgs(cities[fromCity], cities[toCity], mode));
             //use dijkstra's algorithm to look for all single-source shortest paths
             var visited = new Dictionary<City, DijkstraNode>();
             var pending = new SortedSet<DijkstraNode>(new DijkstraNode[]
@@ -119,7 +127,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 
         private IEnumerable<Link> ConvertListOfCitiesToListOfLinks(List<City> citiesEnRoute)
         {
-           return citiesEnRoute.Zip(citiesEnRoute.Skip(1), (c1, c2) => new Link(c1, c2, c1.Location.Distance(c2.Location)));
+            return citiesEnRoute.Zip(citiesEnRoute.Skip(1), (c1, c2) => new Link(c1, c2, c1.Location.Distance(c2.Location)));
         }
 
         private IEnumerable<Link> GetListOfAllOutgoingRoutes(City visitingCity, TransportMode mode)

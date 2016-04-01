@@ -12,12 +12,17 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
     public class Cities
     {
         private List<City> cities;
-        public int Count { get; private set; }
+        public int Count
+        {
+            get
+            {
+                return cities.Count();
+            }
+        }
 
         public Cities()
         {
             cities = new List<City>();
-            Count = 0;
         }
 
         public City this[int i]
@@ -42,7 +47,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
                 {
                     return city;
                 }
-                else 
+                else
                     throw new KeyNotFoundException();
 
             }
@@ -63,15 +68,17 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             using (TextReader reader = new StreamReader(filename))
             {
                 IEnumerable<string[]> citiesAsStrings = reader.GetSplittedLines('\t');
-                
-                var readCounter = 0;
-                foreach (var line in citiesAsStrings)
-                {
-                    cities.Add(new City(line[0].Trim(), line[1].Trim(), int.Parse(line[2]), double.Parse(line[3], CultureInfo.InvariantCulture), double.Parse(line[4], CultureInfo.InvariantCulture)));
-                    readCounter++;
-                }
-                Count += readCounter;
-                return readCounter;
+
+                var countBefore = cities.Count();
+
+                cities.AddRange(citiesAsStrings.Select(line => new City(
+                    name: line[0].Trim(),
+                    country: line[1].Trim(),
+                    population: int.Parse(line[2]),
+                    latitude: double.Parse(line[3], CultureInfo.InvariantCulture),
+                    longitude: double.Parse(line[4], CultureInfo.InvariantCulture)
+                    )));
+                return cities.Count() - countBefore;
             }
 
         }
@@ -79,7 +86,9 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 
         public IEnumerable<City> FindNeighbours(WayPoint location, double distance)
         {
-            return cities.Where(c => c.Location.Distance(location) <= distance).OrderBy(c => c.Location.Distance(location));
+            return cities
+                .Where(c => c.Location.Distance(location) <= distance)
+                .OrderBy(c => c.Location.Distance(location));
         }
 
 
