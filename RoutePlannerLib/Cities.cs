@@ -85,11 +85,10 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 
 
         public IEnumerable<City> FindNeighbours(WayPoint location, double distance)
-        {
-            return cities
-                .Where(c => c.Location.Distance(location) <= distance)
-                .OrderBy(c => c.Location.Distance(location));
-        }
+            => cities
+               .Where(c => c.Location.Distance(location) <= distance)
+               .OrderBy(c => c.Location.Distance(location));
+
 
 
     }
