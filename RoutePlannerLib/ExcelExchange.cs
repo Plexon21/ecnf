@@ -13,8 +13,6 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.Export
         private Application app;
         public void WriteToFile(string fileName, IEnumerable<Link> links)
         {
-            try
-            {
                 app = new Application();
                 if (app == null)
                 {
@@ -61,9 +59,6 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.Export
                 wb.SaveAs(fileName);
                 wb.Close();
                 app.Quit();
-            }
-            catch (COMException e)
-            {
             }
         }
     }
