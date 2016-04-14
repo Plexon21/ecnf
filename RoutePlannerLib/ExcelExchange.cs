@@ -51,7 +51,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.Export
 
 
 
-            Range cellRange = ws.Range[ws.Cells[1, 1], ws.Cells[row + 1, columns]];
+            Range cellRange = ws.Range[(Range)ws.Cells[1, 1], (Range)ws.Cells[row + 1, columns]];
             cellRange.Value2 = dataToInsert;
             cellRange.Borders.LineStyle = Microsoft.Office.Interop.Excel.XlLineStyle.xlContinuous;
 
