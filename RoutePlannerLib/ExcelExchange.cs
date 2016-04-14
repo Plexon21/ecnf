@@ -12,7 +12,13 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.Export
         private Application app;
         public void WriteToFile(string fileName, IEnumerable<Link> links)
         {
-            app = new Application { Visible = false };
+            app = new Application();
+            if (app == null)
+            {
+                Console.WriteLine("Excel not available");
+                return;
+            }
+            app.Visible = false;
             Workbook wb = app.Workbooks.Add();
             Worksheet ws = wb.Worksheets[1];
 
