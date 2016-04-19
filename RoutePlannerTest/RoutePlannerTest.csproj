@@ -78,10 +78,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RoutePlannerConsole\RoutePlannerConsole.csproj">
-      <Project>{ac8886ad-dcb3-4c11-b0f5-76cfff3e2a99}</Project>
-      <Name>RoutePlannerConsole</Name>
-    </ProjectReference>
     <ProjectReference Include="..\RoutePlannerLib\RoutePlannerLib.csproj">
       <Project>{2d7f300d-e156-40af-bfc8-881da719c098}</Project>
       <Name>RoutePlannerLib</Name>
