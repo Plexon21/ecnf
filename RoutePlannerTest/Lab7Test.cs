@@ -11,7 +11,8 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerTest
     [DeploymentItem("data/citiesTestDataLab2.txt")]
     public class Lab07Test
     {
-        [TestMethod,Ignore]
+        [Ignore]
+        [TestMethod]
         public void TestExcelExport()
         {
             var excelFileName = Directory.GetCurrentDirectory() + @"\ExportTest.xlsx";
