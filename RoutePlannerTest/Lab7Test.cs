@@ -10,9 +10,8 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerTest
     [TestClass]
     [DeploymentItem("data/citiesTestDataLab2.txt")]
     public class Lab07Test
-    {
-        [Ignore]
-        [TestMethod]
+    {/*
+        [Ignore,TestMethod]
         public void TestExcelExport()
         {
             var excelFileName = Directory.GetCurrentDirectory() + @"\ExportTest.xlsx";
@@ -33,7 +32,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerTest
             //should not show dialog boxes or fail, should silently overwrite the file
             excel.WriteToFile(excelFileName, links);
             Assert.IsTrue(File.Exists(excelFileName), excelFileName);
-        }
+        }*/
 
        [TestMethod]
         public void TestDynamicWorld()
