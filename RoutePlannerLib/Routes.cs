@@ -10,7 +10,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
     ///	<summary>
     ///	Manages	a routes from a	city to	another	city.
     ///	</summary>
-    public class Routes
+    public class Routes : IRoutes
     {
         private List<Link> routes = new List<Link>();
         private Cities cities;
