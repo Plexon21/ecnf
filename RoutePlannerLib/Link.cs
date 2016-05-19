@@ -26,6 +26,11 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 
 	    public City ToCity { get; }
 
+	    public Link()
+	    {
+	    }
+
+
 	    public Link(City _fromCity, City _toCity, double _distance)
 		{
 			FromCity = _fromCity;

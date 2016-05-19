@@ -10,6 +10,11 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.Dynamic
     public class World : DynamicObject
     {
         private Cities cities;
+
+        public World()
+        {
+        }
+
         public World(Cities cities)
         {
             this.cities = cities;

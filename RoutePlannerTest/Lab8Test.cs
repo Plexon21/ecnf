@@ -54,7 +54,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerTest
         }
 
 
-        [TestMethod,Ignore]
+        [TestMethod]
         public void TestLoadAndRunDynamicSecondImpl()
         {
             var defaultSettings = Assembly.GetAssembly(typeof(IRoutes))

@@ -11,7 +11,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerTest
     [TestClass]
     public class Lab8DeSerializerTest
     {
-        [TestMethod,Ignore]
+        [TestMethod]
         public void TestSerializeSingleCityWithValues()
         {
             var c = new City("Aarau", "Switzerland", 10, 1.1, 2.2);
@@ -37,7 +37,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerTest
             + "Population=10\r\n"
             + "End of instance\r\n";
 
-        [TestMethod,Ignore]
+        [TestMethod]
         public void TestSerializeMultCitiesWithValues()
         {
             const string expectedString1 =
@@ -85,7 +85,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerTest
 
 
 
-        [TestMethod,Ignore]
+        [TestMethod]
         public void TestDeserializeSingleCityWithValues()
         {
             var expectedCity = new City("Aarau", "Switzerland", 10, 1.1, 2.2);
@@ -98,7 +98,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerTest
             Assert.AreEqual(expectedCity.Location.Latitude, city.Location.Latitude);
         }
 
-        [TestMethod,Ignore]
+        [TestMethod]
         public void TestDeserializeMultCitiesWithValues()
         {
             const string cityString1 =
@@ -142,7 +142,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerTest
             Assert.AreEqual(expectedCity2.Location.Latitude, city2.Location.Latitude);
         }
 
-        [TestMethod,Ignore]
+        [TestMethod]
         public void TestSerializeOtherThings()
         {
             const string expected =
@@ -189,7 +189,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerTest
             }
         }
 
-        [TestMethod,Ignore]
+        [TestMethod]
         public void TestSerializationCulture()
         {
             const string expected =

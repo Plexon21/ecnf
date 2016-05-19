@@ -9,9 +9,13 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 {
     public class WayPoint
     {
-        public string Name { get; set; }
-        public double Longitude { get; set; }
         public double Latitude { get; set; }
+        public double Longitude { get; set; }
+        public string Name { get; set; }
+
+        public WayPoint()
+        {
+        }
 
         public WayPoint(string name, double latitude, double longitude)
         {

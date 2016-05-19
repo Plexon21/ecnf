@@ -14,32 +14,31 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
         {
             return Create(cities, Settings.Default.RouteAlgorithm);
         }
+
         static public IRoutes Create(Cities cities, string algorithmClassName)
         {
-            try
+            var a = AppDomain.CurrentDomain.GetAssemblies();
+
+            foreach (var assembly in a)
             {
-                Assembly[] a = AppDomain.CurrentDomain.GetAssemblies();
-                Type assemType = null;
-                foreach (var assembly in a)
+                try
                 {
-                    if (assemType == null)
+                    var assemType = assembly.GetType(algorithmClassName);
+                    if (assemType != null)
                     {
-                        assemType = assembly.GetType(algorithmClassName);
+                        {
+                            var constructor = assemType.GetConstructor(new[] {typeof (Cities)});
+                            var instance = constructor.Invoke(new object[] {cities});
+                            return (IRoutes) instance;
+                        }
                     }
                 }
-
-                if (assemType != null)
+                catch (Exception)
                 {
-                    var type = Type.GetType(algorithmClassName);
-                    var constructor = type.GetConstructor(new[] { typeof(Cities) });
-                    var instance = constructor.Invoke(new object[] { cities });
-                    return (IRoutes)instance;
+                    throw new NotSupportedException();
                 }
-                else throw new NotSupportedException();
             }
-            catch (Exception) { throw new NotSupportedException(); }
-
-            return null;
+            throw new NotSupportedException();
         }
     }
 }

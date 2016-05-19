@@ -20,6 +20,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             }
         }
 
+
         public Cities()
         {
             cities = new List<City>();

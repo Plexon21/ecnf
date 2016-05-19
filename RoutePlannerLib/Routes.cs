@@ -34,6 +34,10 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             cities = _cities;
         }
 
+        public Routes()
+        {
+        }
+
         ///	<summary>
         ///	Reads a	list of	links from the given file.
         ///	Reads only links where the cities exist.
