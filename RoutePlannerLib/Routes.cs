@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading;
 using System.Linq;
 using Fhnw.Ecnf.RoutePlanner.RoutePlannerLib;
@@ -12,6 +13,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
     ///	</summary>
     public class Routes : IRoutes
     {
+        private static TraceSource Log = new TraceSource(nameof(Routes));
         private List<Link> routes = new List<Link>();
         private Cities cities;
         public delegate void RouteRequestHandler(object sender, RouteRequestEventArgs e);
@@ -46,27 +48,29 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
         ///	<returns>number	of read	route</returns>
         public int ReadRoutes(string _filename)
         {
+            Log.TraceEvent(TraceEventType.Information, 1, "ReadRoutes started");
             var previousCount = Count;
-            using (var reader = new StreamReader(_filename))
-            {
-                string line;
-                while ((line = reader.ReadLine()) != null)
+                using (var reader = new StreamReader(_filename))
                 {
-                    var tokens = line.Split('\t');
-                    try
+                    string line;
+                    while ((line = reader.ReadLine()) != null)
                     {
-                        var city1 = cities[tokens[0]];
-                        var city2 = cities[tokens[1]];
+                        var tokens = line.Split('\t');
+                        try
+                        {
+                            var city1 = cities[tokens[0]];
+                            var city2 = cities[tokens[1]];
 
-                        if (city1 != null && city2 != null)
-                            routes.Add(new Link(city1, city2, city1.Location.Distance(city2.Location),
-                                TransportMode.Rail));
-                    }
-                    catch (KeyNotFoundException e)
-                    {
+                            if (city1 != null && city2 != null)
+                                routes.Add(new Link(city1, city2, city1.Location.Distance(city2.Location),
+                                    TransportMode.Rail));
+                        }
+                        catch (KeyNotFoundException e)
+                        {
+                        }
                     }
                 }
-            }
+            Log.TraceEvent(TraceEventType.Information, 2, "ReadRoutes ended");
 
             return Count - previousCount;
         }

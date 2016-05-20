@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 {
     public class Cities
     {
+        private static TraceSource Log = new TraceSource(nameof(Cities));
         private List<City> cities;
         public int Count
         {
@@ -66,20 +68,30 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 
         public int ReadCities(string filename)
         {
-            using (TextReader reader = new StreamReader(filename))
+            try
             {
-                IEnumerable<string[]> citiesAsStrings = reader.GetSplittedLines('\t');
+                using (TextReader reader = new StreamReader(filename))
+                {
+                    Log.TraceEvent(TraceEventType.Information, 3, "ReadCities started");
+                    IEnumerable<string[]> citiesAsStrings = reader.GetSplittedLines('\t');
 
-                var countBefore = cities.Count();
+                    var countBefore = cities.Count();
 
-                cities.AddRange(citiesAsStrings.Select(line => new City(
-                    name: line[0].Trim(),
-                    country: line[1].Trim(),
-                    population: int.Parse(line[2]),
-                    latitude: double.Parse(line[3], CultureInfo.InvariantCulture),
-                    longitude: double.Parse(line[4], CultureInfo.InvariantCulture)
-                    )));
-                return cities.Count() - countBefore;
+                    cities.AddRange(citiesAsStrings.Select(line => new City(
+                        name: line[0].Trim(),
+                        country: line[1].Trim(),
+                        population: int.Parse(line[2]),
+                        latitude: double.Parse(line[3], CultureInfo.InvariantCulture),
+                        longitude: double.Parse(line[4], CultureInfo.InvariantCulture)
+                        )));
+                    Log.TraceEvent(TraceEventType.Information, 4, "ReadCities ended");
+                    return cities.Count() - countBefore;
+                }
+            }
+            catch (FileNotFoundException e)
+            {
+                Log.TraceEvent(TraceEventType.Critical, 5, e.StackTrace);
+                return 0;
             }
 
         }
