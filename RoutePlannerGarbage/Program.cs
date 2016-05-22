@@ -13,24 +13,26 @@ namespace RoutePlannerGarbage
     {
 
         /* Resultate:
-        * Ohne anpassungen:                     00:00:00.0420933
+        * Ohne anpassungen:                     00:00:00.3904838
         * 
         * Änderungen in App.config:
-        * GC server enabled:                    00:00:00.0277348
-        * concurrent enabled:                   00:00:00.0436908
-        * cpu gruppen enabled:                  00:00:00.0420473
-        * grosse objekte erlaut:                00:00:00.0422410
-        * Alle configsettings eingeschaltet:    00:00:00.0752415
+        * GC server enabled:                    00:00:00.1695509
+        * concurrent enabled:                   00:00:00.3636848
+        * cpu gruppen enabled:                  00:00:00.3578719
+        * grosse objekte erlaut:                00:00:00.4310585
+        * Alle configsettings eingeschaltet:    00:00:00.1960634
         * 
-        * GCSettings.LatencyMode anpassungen:
-        * GCLatencyMode.Interactive:            00:00:00.0485255
-        * GCLatencyMode.SustainedLowLatency:    00:00:00.0443946
-        * GCLatencyMode.Batch:                  00:00:00.0435164
-        * GCLatencyMode.LowLatency:             00:00:00.0423008
         */
         static void Main(string[] args)
         {
-            GarbageTest tc = new GarbageTest(1000000);
+            GarbageTest tc = new GarbageTest(10000000);
+            /* Resultate mit GCSettings.LatencyMode anpassungen:
+            GCLatencyMode.Interactive:            00:00:00.3858334
+            GCLatencyMode.SustainedLowLatency:    00:00:00.3887934
+            GCLatencyMode.Batch:                  00:00:00.5059717
+            GCLatencyMode.LowLatency:             00:00:00.3591759
+            
+             */
             //GCSettings.LatencyMode = GCLatencyMode.Interactive;
             //GCSettings.LatencyMode = GCLatencyMode.SustainedLowLatency;
             //GCSettings.LatencyMode = GCLatencyMode.Batch;
