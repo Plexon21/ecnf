@@ -170,7 +170,7 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
             var routes = new ConcurrentBag<List<Link>>();
             Parallel.For(0, cities.Count, i =>
             {
-                for (int j = 0; j < cities.Count; j++)
+                Parallel.For(0, cities.Count, j =>
                 {
                     routes.Add(FindShortestRouteBetween(cities[i].Name, cities[j].Name, TransportMode.Ship));
                     routes.Add(FindShortestRouteBetween(cities[i].Name, cities[j].Name, TransportMode.Rail));
@@ -178,7 +178,8 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
                     routes.Add(FindShortestRouteBetween(cities[i].Name, cities[j].Name, TransportMode.Car));
                     routes.Add(FindShortestRouteBetween(cities[i].Name, cities[j].Name, TransportMode.Bus));
                     routes.Add(FindShortestRouteBetween(cities[i].Name, cities[j].Name, TransportMode.Tram));
-                }
+                })
+                ;
 
             });
             return routes.ToList();
@@ -195,16 +196,12 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib
 
         public IEnumerable<Link> ConvertListOfCitiesToListOfLinks(List<City> cities, TransportMode m)
         {
-            //List<Link> result = new List<Link>();
             for (int i = 0; i < cities.Count - 1; i++)
             {
                 City from = cities[i];
                 City to = cities[i + 1];
                 yield return GetRoute(from, to, m);
             }
-
-
-            //return result;
         }
 
         public Link GetRoute(City from, City to, TransportMode m)
