@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.Util
@@ -13,6 +14,16 @@ namespace Fhnw.Ecnf.RoutePlanner.RoutePlannerLib.Util
                 yield return line.Split(splitChar);
                 line = reader.ReadLine();
             }
+        }
+        public static void AddIfNotNull<U>(this List<U> list, U value)
+        where U : class
+        {
+            if (value != null) { list.Add(value); }
+        }
+        public static void AddIfNotNull<U>(this ConcurrentBag<U> list, U value)
+       where U : class
+        {
+            if (value != null) { list.Add(value); }
         }
     }
 }
